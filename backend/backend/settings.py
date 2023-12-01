@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "users.apps.UsersConfig",
     "direction.apps.DirectionConfig",
 ]
 
@@ -64,7 +65,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": os.getenv("ENGINE", "django.db.backends.postgresql"),
-        "NAME": os.getenv("DB_NAME", "tracker"),
+        "NAME": os.getenv("DB_NAME"),
         "USER": os.getenv("POSTGRES_USER"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
         "HOST": os.getenv("DB_HOST", ""),
@@ -113,3 +114,11 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+LEVEL = (("jun", "Junior"), ("middle", "Middle"), ("senior", "Senior"))
+STMT_COURSE = (
+    ("passed", "Завершен"),
+    ("not_passed", "Не пройден"),
+    ("in_progress", "В процессе"),
+)
