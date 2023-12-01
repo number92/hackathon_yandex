@@ -3,16 +3,21 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.User)
-class UserAdmin(admin.ModelAdmin):
+@admin.register(models.Course)
+class CourseAdmin(admin.ModelAdmin):
     list_display = (
-        "username",
-        "id",
-        "email",
-        "password",
-        "first_name",
-        "last_name",
+        "name",
+        "level",
+        "description",
+        "link",
+        "progress",
     )
-    list_editable = ("password", "email")
-    list_filter = ("username", "email")
-    search_fields = ("username", "email")
+    list_editable = (
+        "name",
+        "level",
+        "description",
+        "link",
+        "progress",
+    )
+    list_filter = ("name", "level")
+    search_fields = ("name",)
