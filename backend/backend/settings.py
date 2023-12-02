@@ -73,7 +73,7 @@ DATABASES = {
     },
 }
 
-AUTH_USER_MODEL = "direction.User"
+AUTH_USER_MODEL = "users.User"
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -96,7 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-RU"
+LANGUAGE_CODE = "ru-RU"
 
 TIME_ZONE = "UTC"
 
@@ -116,7 +116,14 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-LEVEL = (("jun", "Junior"), ("middle", "Middle"), ("senior", "Senior"))
+LEVEL = (
+    ("newbie", "Newbie"),
+    ("junior", "Junior"),
+    ("middle", "Middle"),
+    ("senior", "Senior"),
+    ("lead", "Lead"),
+)
+
 STMT_COURSE = (
     ("passed", "Завершен"),
     ("not_passed", "Не пройден"),
