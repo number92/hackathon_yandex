@@ -9,20 +9,18 @@ class CourseAdmin(admin.ModelAdmin):
         "id",
         "name",
         "level",
-        "description",
         "link",
         "status",
-        "image",
+        "direction",
         "duration",
         "price",
     )
     list_editable = (
         "name",
         "level",
-        "description",
         "link",
         "status",
-        "image",
+        "direction",
         "duration",
         "price",
     )
@@ -42,24 +40,10 @@ class DirectionAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "name",
-        "courses_dir",
-        "description",
-        "link",
     )
-    list_editable = (
-        "name",
-        "courses_dir",
-        "description",
-        "link",
-    )
-    list_filter = (
-        "name",
-        "link",
-    )
-    search_fields = (
-        "name",
-        "link",
-    )
+    list_editable = ("name",)
+    list_filter = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(models.Profession)
@@ -68,14 +52,10 @@ class ProfessionAdmin(admin.ModelAdmin):
         "id",
         "name",
         "short_name",
-        "image",
-        "description",
     )
     list_editable = (
         "name",
         "short_name",
-        "image",
-        "description",
     )
     list_filter = (
         "name",
