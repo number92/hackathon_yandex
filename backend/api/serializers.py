@@ -1,16 +1,22 @@
 from rest_framework import serializers
-from ..models import Direction, CurrentProfession
+from direction.models import Direction, Profession
+
+
+class ProfessionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profession
+        fields = ("id", "name")
 
 
 class DirectionASerializer(serializers.ModelSerializer):
-    name = serializers.ReadOnlyField(source="name")
+    professions = ProfessionsSerializer(
+        many=True, read_only=True, source="profession"
+    )
 
     class Meta:
         model = Direction
-        fields = "__all__"
+        fields = ("id", "name", "professions")
 
-
-class CurrentProfessionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CurrentProfession
-        fields = "__all__"
+    # def get_professions(self, obj):
+    #     request = self.context["request"]
+    #     print(request)
