@@ -1,15 +1,14 @@
 from rest_framework.routers import DefaultRouter
 
-from django.urls import include, path
-
-from .views import FirstStepView
+from django.urls import path
+from .views import firststep_view
 
 router = DefaultRouter()
 
 
-router.register(r"first-step", FirstStepView, basename="first-step")
-
+# router.register(r"first-step", firststep_view, basename="first-step")
 
 urlpatterns = [
-    path("", include(router.urls)),
+    # path("", include(router.urls)),
+    path("first-step/", firststep_view, name="first-step")
 ]

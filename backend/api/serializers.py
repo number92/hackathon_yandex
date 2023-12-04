@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from direction.models import Direction, Profession
+from .utils import level_b_json, level_a_json
 
 
 class ProfessionsSerializer(serializers.ModelSerializer):
@@ -10,13 +11,28 @@ class ProfessionsSerializer(serializers.ModelSerializer):
 
 class DirectionASerializer(serializers.ModelSerializer):
     professions = ProfessionsSerializer(
-        many=True, read_only=True, source="profession"
+        read_only=True, many=True, source="profession"
     )
 
     class Meta:
         model = Direction
         fields = ("id", "name", "professions")
 
-    # def get_professions(self, obj):
-    #     request = self.context["request"]
-    #     print(request)
+
+class FirstStepSerializer(serializers.Serializer):
+    directions = serializers.SerializerMethodField()
+    level_a = serializers.SerializerMethodField()
+    level_b = serializers.SerializerMethodField()
+
+    class Meta:
+        fields = ("directions", "level_a", "level_b")
+
+    def get_level_a(self, obj):
+        return level_a_json()
+
+    def get_level_b(self, obj):
+        return level_b_json()
+
+    def get_directions(self, obj):
+        serializer = DirectionASerializer(Direction.objects.all(), many=True)
+        return serializer.data

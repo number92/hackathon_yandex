@@ -1,25 +1,15 @@
-from rest_framework.decorators import api_view, action
+from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.mixins import ListModelMixin
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from api.serializers import (
+    FirstStepSerializer,
+)
 
 
-from api.serializers import DirectionASerializer
-from direction.models import Course, Direction, Profession
-
-
-# @api_view(
-#     [
-#         "GET",
-#     ]
-# )
-# def userData(request):
-#     pass
-
-
-class FirstStepView(ListModelMixin, GenericViewSet):
-    queryset = Direction.objects.all()
-    serializer_class = DirectionASerializer
+@api_view(["GET"])
+def firststep_view(request):
+    serializer = FirstStepSerializer(request)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # # get
