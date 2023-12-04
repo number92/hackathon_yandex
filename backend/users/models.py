@@ -38,7 +38,7 @@ class UserGradeMap(models.Model):
     )
     end_level = models.CharField(
         "Квалификация",
-        choices=settings.LEVEL,
+        choices=settings.DESIRED_LEVEL,
     )
     start_prof = models.ForeignKey(
         Profession,

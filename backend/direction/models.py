@@ -18,49 +18,6 @@ class Direction(models.Model):
         return self.name
 
 
-class Course(models.Model):
-    name = models.CharField("Название", max_length=256, unique=True)
-    level = models.CharField(
-        "Уровень",
-        choices=settings.LEVEL,
-        max_length=256,
-        default=None,
-    )
-    description = models.TextField(
-        "Описание",
-        blank=True,
-    )
-    link = models.SlugField("Адрес", unique=True, blank=False)
-    status = models.CharField(
-        "Статус",
-        choices=settings.STMT_COURSE,
-        max_length=256,
-        default=None,
-        blank=True,
-    )
-    direction = models.ForeignKey(
-        Direction,
-        on_delete=models.SET_NULL,
-        verbose_name="Курсы направления",
-        related_name="direction",
-        null=True,
-    )
-    image = models.ImageField(
-        verbose_name="Изображение", upload_to="media/images/", blank=True
-    )
-    duration = models.PositiveIntegerField(
-        "Длительность", validators=(MinValueValidator(1),)
-    )
-    price = models.PositiveIntegerField("Цена", blank=True, null=True)
-
-    class Meta:
-        verbose_name = "Курс"
-        verbose_name_plural = "Курсы"
-
-    def __str__(self):
-        return f"{self.name}, {self.level}"
-
-
 class Profession(models.Model):
     name = models.CharField("Название", max_length=256, unique=True)
     short_name = models.CharField("Короткое имя", max_length=256, unique=True)
@@ -108,3 +65,46 @@ class ProfessionInDirection(models.Model):
 
     def __str__(self):
         return f"{self.direction.name} {self.profession.short_name} "
+
+
+class Course(models.Model):
+    name = models.CharField("Название", max_length=256)
+    level = models.CharField(
+        "Уровень",
+        choices=settings.LEVEL,
+        max_length=256,
+        default=None,
+    )
+    description = models.TextField(
+        "Описание",
+        blank=True,
+    )
+    link = models.SlugField("Адрес", blank=True)
+    status = models.CharField(
+        "Статус",
+        choices=settings.STMT_COURSE,
+        max_length=256,
+        default=None,
+        blank=True,
+    )
+    professions = models.ForeignKey(
+        Profession,
+        on_delete=models.SET_NULL,
+        verbose_name="Профессии курса",
+        related_name="profession",
+        null=True,
+    )
+    image = models.ImageField(
+        verbose_name="Изображение", upload_to="media/images/", blank=True
+    )
+    duration = models.PositiveIntegerField(
+        "Длительность", validators=(MinValueValidator(1),)
+    )
+    price = models.PositiveIntegerField("Цена", blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Курс"
+        verbose_name_plural = "Курсы"
+
+    def __str__(self):
+        return f"{self.name}, {self.level}"

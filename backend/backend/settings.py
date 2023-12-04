@@ -118,7 +118,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 LEVEL = (
-    ("newbie", "Newbie"),
+    ("newbie", "Без опыта"),
+    ("junior", "Junior"),
+    ("middle", "Middle"),
+    ("senior", "Senior"),
+    ("lead", "Lead"),
+)
+DESIRED_LEVEL = (
     ("junior", "Junior"),
     ("middle", "Middle"),
     ("senior", "Senior"),

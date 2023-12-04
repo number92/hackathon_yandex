@@ -11,7 +11,7 @@ class CourseAdmin(admin.ModelAdmin):
         "level",
         "link",
         "status",
-        "direction",
+        "professions",
         "duration",
         "price",
     )
@@ -20,7 +20,7 @@ class CourseAdmin(admin.ModelAdmin):
         "level",
         "link",
         "status",
-        "direction",
+        "professions",
         "duration",
         "price",
     )
@@ -54,10 +54,6 @@ class ProfessionAdmin(admin.ModelAdmin):
         "short_name",
     )
     list_editable = (
-        "name",
-        "short_name",
-    )
-    list_filter = (
         "name",
         "short_name",
     )
