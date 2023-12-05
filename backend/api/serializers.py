@@ -43,7 +43,6 @@ class UserGradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserGradeMap
         fields = (
-            "user",
             "start_level",
             "end_level",
             "start_prof",
