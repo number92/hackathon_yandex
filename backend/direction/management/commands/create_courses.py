@@ -10,13 +10,16 @@ def create_courses():
         accept_obj = []
         for row in csv_reader:
             try:
-                Profession.objects.get_or_create(
+                course = Course.objects.get_or_create(
                     name=row["name"],
                     # short_name=row["short_name"],
-                    # direction=Direction.objects.filter(
-                    #     name=row["directions"]
+                    # professions=Profession.objects.get(
+                    #     name=row["professions"]
                     # ).id,
+                    duration=1,
                 )
+                course.save()
+                course.professions.add(row['professions'])
                 accept_obj.append(row["name"])
             except Exception as err:
                 pprint(f"ошибка добавления {row['name']}: {err} ")

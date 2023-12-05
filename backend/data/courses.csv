@@ -1,4 +1,4 @@
-name,directions
+name,professions
 Бизнес-аналитик,Бизнес-аналитик
 Системный аналитик буткемп,Системный аналитик
 Системный аналитик,Системный аналитик
@@ -7,7 +7,7 @@ name,directions
 Аналитик данных плюс,Аналитик данных
 Специалист по Data Science,Data Science
 Data Science буткемп,Data Science
-Специалист по Data Science плюс,
+Специалист по Data Science плюс,Data Science
 Финансовый аналитик,Бизнес-аналитик
 SQL для работы с данными и аналитики,Data Science
 Python для анализа данных,Data Science
