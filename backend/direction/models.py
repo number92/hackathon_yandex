@@ -49,7 +49,7 @@ class ProfessionInDirection(models.Model):
         Profession,
         on_delete=models.CASCADE,
         related_name="professions",
-        verbose_name="Професии",
+        verbose_name="Професcии",
     )
 
     direction = models.ForeignKey(
@@ -61,7 +61,7 @@ class ProfessionInDirection(models.Model):
 
     class Meta:
         verbose_name = "Профессия в направления"
-        verbose_name_plural = "Професии в направлениях"
+        verbose_name_plural = "Професcии в направлениях"
 
     def __str__(self):
         return f"{self.direction.name} {self.profession.short_name} "
