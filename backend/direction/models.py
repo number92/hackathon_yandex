@@ -29,7 +29,7 @@ class Profession(models.Model):
         verbose_name="Направление",
     )
     image = models.ImageField(
-        verbose_name="Изображение", upload_to="media/images/", blank=True
+        verbose_name="Изображение", upload_to="images/", blank=True
     )
     description = models.TextField(
         "Описание",
@@ -89,13 +89,12 @@ class Course(models.Model):
     )
     professions = models.ForeignKey(
         Profession,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name="Профессии курса",
         related_name="profession",
-        null=True,
     )
     image = models.ImageField(
-        verbose_name="Изображение", upload_to="media/images/", blank=True
+        verbose_name="Изображение", upload_to="images/", blank=True
     )
     duration = models.PositiveIntegerField(
         "Длительность", validators=(MinValueValidator(1),)

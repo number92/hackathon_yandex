@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from direction.models import Direction, Profession
+from users.models import UserGradeMap
 from .utils import level_b_json, level_a_json
 
 
@@ -36,3 +37,35 @@ class FirstStepSerializer(serializers.Serializer):
     def get_directions(self, obj):
         serializer = DirectionASerializer(Direction.objects.all(), many=True)
         return serializer.data
+
+
+class UserGradeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserGradeMap
+        fields = (
+            "user",
+            "start_level",
+            "end_level",
+            "start_prof",
+            "end_prof",
+            "data_joined",
+        )
+
+    def validate(self, attrs):
+        return attrs
+
+    def create(self, validated_data):
+        return UserGradeMap.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.start_level = validated_data.get(
+            "start_level", instance.start_level
+        )
+        instance.end_level = validated_data.get(
+            "end_level", instance.end_level
+        )
+        instance.start_prof = validated_data.get(
+            "start_prof", instance.start_prof
+        )
+        instance.end_prof = validated_data.get("end_prof", instance.end_prof)
+        return instance

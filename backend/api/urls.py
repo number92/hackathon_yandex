@@ -1,7 +1,7 @@
 from rest_framework.routers import DefaultRouter
 
-from django.urls import path
-from .views import firststep_view
+from django.urls import include, path
+from .views import FirstStepView
 
 router = DefaultRouter()
 
@@ -10,5 +10,7 @@ router = DefaultRouter()
 
 urlpatterns = [
     # path("", include(router.urls)),
-    path("first-step/", firststep_view, name="first-step")
+    path("first-step/", FirstStepView.as_view(), name="first-step"),
+    path(r"", include("djoser.urls")),
+    path(r"auth/", include("djoser.urls.authtoken")),
 ]
