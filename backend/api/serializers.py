@@ -21,12 +21,12 @@ class DirectionASerializer(serializers.ModelSerializer):
 
 
 class FirstStepSerializer(serializers.Serializer):
-    directions = serializers.SerializerMethodField()
     level_a = serializers.SerializerMethodField()
     level_b = serializers.SerializerMethodField()
+    directions = serializers.SerializerMethodField()
 
     class Meta:
-        fields = ("directions", "level_a", "level_b")
+        fields = ("level_a", "level_b", "directions")
 
     def get_level_a(self, obj):
         return level_a_json()
@@ -43,6 +43,7 @@ class UserGradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserGradeMap
         fields = (
+            "user",
             "start_level",
             "end_level",
             "start_prof",
@@ -54,6 +55,7 @@ class UserGradeSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        print(validated_data)
         return UserGradeMap.objects.create(**validated_data)
 
     def update(self, instance, validated_data):

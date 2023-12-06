@@ -7,13 +7,17 @@ from direction.models import Course, Profession
 class User(AbstractUser):
     """Класс пользователей."""
 
-    email = models.EmailField(("email"))
+    email = models.EmailField(("email"), unique=True)
     courses = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
         related_name="courses",
         verbose_name="Курсы",
+        blank=True,
+        null=True,
     )
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ("username", "password")
 
     class Meta:
         verbose_name = "Пользователь"
