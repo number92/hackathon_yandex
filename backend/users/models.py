@@ -10,8 +10,7 @@ class User(AbstractUser):
     email = models.EmailField(("email"))
     courses = models.ForeignKey(
         Course,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         related_name="courses",
         verbose_name="Курсы",
     )
@@ -26,7 +25,7 @@ class User(AbstractUser):
 
 
 class UserGradeMap(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
         related_name="user",
@@ -37,20 +36,18 @@ class UserGradeMap(models.Model):
         choices=settings.LEVEL,
     )
     end_level = models.CharField(
-        "Квалификация",
+        "Желаемая квалификация",
         choices=settings.DESIRED_LEVEL,
     )
     start_prof = models.ForeignKey(
         Profession,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         verbose_name="Начальная профессия",
         related_name="start_prof",
     )
     end_prof = models.ForeignKey(
         Profession,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         verbose_name="Желаемая профессия",
         related_name="end_prof",
     )
