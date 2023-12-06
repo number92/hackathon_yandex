@@ -31,10 +31,7 @@ class Profession(models.Model):
     image = models.ImageField(
         verbose_name="Изображение", upload_to="images/", blank=True
     )
-    description = models.TextField(
-        "Описание",
-        blank=True,
-    )
+    description = models.TextField("Описание", blank=True, null=True)
 
     class Meta:
         verbose_name = "Профессия"
@@ -71,7 +68,7 @@ class Course(models.Model):
     name = models.CharField("Название", max_length=256)
     level = models.CharField(
         "Уровень",
-        choices=settings.LEVEL,
+        choices=settings.DESIRED_LEVEL,
         max_length=256,
         default=None,
     )
@@ -86,12 +83,14 @@ class Course(models.Model):
         max_length=256,
         default=None,
         blank=True,
+        null=True,
     )
     professions = models.ForeignKey(
         Profession,
         on_delete=models.CASCADE,
         verbose_name="Профессии курса",
         related_name="profession",
+        blank=True,
     )
     image = models.ImageField(
         verbose_name="Изображение", upload_to="images/", blank=True

@@ -1,0 +1,25 @@
+name,link,duration,level,professions
+Бизнес-аналитик,business-analyst,9,Junior,"1,2,5"
+Инструменты начинающего руководителя,operational-management,3,Lead,"1,2,3,4,5,6,7"
+Базовый курс «Управление командой»,team-management,3,Lead,"1,2,3,4,5,6,7"
+Управление командой разработки,team-management-development,6,Lead,"1,2,3,4,5,6,7"
+Дизайн презентаций,design-presentation,3,Middle,"1,2,3,4,5,6,7"
+Основы математики для цифровых профессий,math-foundations,3,Middle,"1,2,3,4,5,7"
+Основы анализа данных и Python,data-analysis-basic,3,Middle,"1,2,3,4,5"
+SQL для работы с данными и аналитики,sql-data-analyst,3,Middle,"1,2,3,4,5"
+Основы работы с базами данных и SQL,sql-database-basics,3,Middle,"1,2,5"
+Системный аналитик,systems-analyst,3,Middle,"1,2,3,4,5"
+Навыки аргументации для руководителей,argumentation,3,Senior,"1,2,3,4,5,6,7"
+"Наставник в IT: как давать обратную связь, мотивировать и решать конфликты",it-mentor,3,Senior,"1,2,3,4,5,6,7"
+Критическое мышление,thinking,3,Senior,"1,2,3,6,7"
+Продуктовая аналитика: специализация,product-analytics-simulator,3,Senior,"1,2"
+Продакт-менеджер для специалистов с опытом,product-manager,9,Middle,"4,7"
+Юнит-экономика,unit-economics,3,Middle,7
+Менеджер проектов,project-manager,9,Junior,"5,6"
+1С-аналитик,1c-analyst,3,Junior,
+Аналитик данных,data-analyst,3,Junior,"3,4"
+Специалист по Data Science,data-scientist,9,Junior,4
+Визуализация данных и введение в BI-инструменты,datavis-and-bi-tools,3,Junior,"3,4"
+Математика для анализа данных,math-for-da-ds,3,Senior,"3,4"
+Python для анализа данных,python-for-analytics,3,Senior,"3,4"
+Основы статистики и A/B-тестирования,statistics-basic,3,Senior,"3,4"

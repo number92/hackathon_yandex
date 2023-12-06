@@ -17,9 +17,9 @@ def create_professions():
                 )
                 obj[0].save()
                 obj[0].direction.add(dir.id)
+                name = row["name"]
                 accept_obj.append(row["name"])
-                prof = Profession.objects.get(name=row["name"])
-
+                prof = Profession.objects.get(name=name)
                 ProfessionInDirection.objects.get_or_create(
                     profession=prof.id, direction=dir.id
                 )
