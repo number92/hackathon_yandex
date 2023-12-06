@@ -7,14 +7,17 @@ from direction.models import Course, Profession
 class User(AbstractUser):
     """Класс пользователей."""
 
-    email = models.EmailField(("email"))
+    email = models.EmailField(("email"), unique=True)
     courses = models.ForeignKey(
         Course,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         related_name="courses",
         verbose_name="Курсы",
+        blank=True,
+        null=True,
     )
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ("username", "password")
 
     class Meta:
         verbose_name = "Пользователь"
@@ -26,7 +29,7 @@ class User(AbstractUser):
 
 
 class UserGradeMap(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
         related_name="user",
@@ -37,20 +40,18 @@ class UserGradeMap(models.Model):
         choices=settings.LEVEL,
     )
     end_level = models.CharField(
-        "Квалификация",
+        "Желаемая квалификация",
         choices=settings.DESIRED_LEVEL,
     )
     start_prof = models.ForeignKey(
         Profession,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         verbose_name="Начальная профессия",
         related_name="start_prof",
     )
     end_prof = models.ForeignKey(
         Profession,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         verbose_name="Желаемая профессия",
         related_name="end_prof",
     )

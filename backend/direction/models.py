@@ -29,7 +29,7 @@ class Profession(models.Model):
         verbose_name="Направление",
     )
     image = models.ImageField(
-        verbose_name="Изображение", upload_to="media/images/", blank=True
+        verbose_name="Изображение", upload_to="images/", blank=True
     )
     description = models.TextField(
         "Описание",
@@ -49,7 +49,7 @@ class ProfessionInDirection(models.Model):
         Profession,
         on_delete=models.CASCADE,
         related_name="professions",
-        verbose_name="Професии",
+        verbose_name="Професcии",
     )
 
     direction = models.ForeignKey(
@@ -61,7 +61,7 @@ class ProfessionInDirection(models.Model):
 
     class Meta:
         verbose_name = "Профессия в направления"
-        verbose_name_plural = "Професии в направлениях"
+        verbose_name_plural = "Професcии в направлениях"
 
     def __str__(self):
         return f"{self.direction.name} {self.profession.short_name} "
@@ -89,13 +89,12 @@ class Course(models.Model):
     )
     professions = models.ForeignKey(
         Profession,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name="Профессии курса",
         related_name="profession",
-        null=True,
     )
     image = models.ImageField(
-        verbose_name="Изображение", upload_to="media/images/", blank=True
+        verbose_name="Изображение", upload_to="images/", blank=True
     )
     duration = models.PositiveIntegerField(
         "Длительность", validators=(MinValueValidator(1),)
