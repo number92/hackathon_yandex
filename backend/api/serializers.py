@@ -12,7 +12,7 @@ class ProfessionsSerializer(serializers.ModelSerializer):
 
 class DirectionASerializer(serializers.ModelSerializer):
     professions = ProfessionsSerializer(
-        read_only=True, many=True, source="profession"
+        read_only=True, many=True, source="directions_professions"
     )
 
     class Meta:

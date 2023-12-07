@@ -11,7 +11,6 @@ class CourseAdmin(admin.ModelAdmin):
         "level",
         "link",
         "status",
-        "professions",
         "duration",
         "price",
     )
@@ -20,7 +19,6 @@ class CourseAdmin(admin.ModelAdmin):
         "level",
         "link",
         "status",
-        "professions",
         "duration",
         "price",
     )
@@ -71,4 +69,17 @@ class ProfessionInDirectionAdmin(admin.ModelAdmin):
     list_editable = (
         "profession",
         "direction",
+    )
+
+
+@admin.register(models.CoursesForProfession)
+class CoursesForProfessionAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "profession",
+        "course",
+    )
+    list_editable = (
+        "profession",
+        "course",
     )

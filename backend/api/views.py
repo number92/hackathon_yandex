@@ -11,7 +11,7 @@ from users.models import UserGradeMap
 class FirstStepView(APIView):
     """Шаг 1."""
 
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     model = UserGradeMap
     queryset = UserGradeMap.objects.all()
 

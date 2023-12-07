@@ -11,7 +11,7 @@ class User(AbstractUser):
     courses = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
-        related_name="courses",
+        related_name="user_courses",
         verbose_name="Курсы",
         blank=True,
         null=True,

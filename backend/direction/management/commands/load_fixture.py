@@ -9,8 +9,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            # create_directions()
-            # create_professions()
+            create_directions()
+            create_professions()
             create_courses()
             print("данные загружены.")
 

@@ -25,7 +25,7 @@ class Profession(models.Model):
         Direction,
         through="ProfessionInDirection",
         through_fields=("profession", "direction"),
-        related_name="profession",
+        related_name="directions_professions",
         verbose_name="Направление",
     )
     image = models.ImageField(
@@ -45,14 +45,14 @@ class ProfessionInDirection(models.Model):
     profession = models.ForeignKey(
         Profession,
         on_delete=models.CASCADE,
-        related_name="professions",
+        related_name="professions_dir",
         verbose_name="Професcии",
     )
 
     direction = models.ForeignKey(
         Direction,
         on_delete=models.CASCADE,
-        related_name="directions",
+        related_name="directions_prof",
         verbose_name="Направления",
     )
 
@@ -85,11 +85,12 @@ class Course(models.Model):
         blank=True,
         null=True,
     )
-    professions = models.ForeignKey(
+    professions = models.ManyToManyField(
         Profession,
-        on_delete=models.CASCADE,
         verbose_name="Профессии курса",
-        related_name="profession",
+        related_name="course_professions",
+        through="CoursesForProfession",
+        through_fields=("course", "profession"),
         blank=True,
     )
     image = models.ImageField(
@@ -106,3 +107,26 @@ class Course(models.Model):
 
     def __str__(self):
         return f"{self.name}, {self.level}"
+
+
+class CoursesForProfession(models.Model):
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        related_name="courses",
+        verbose_name="Курсы",
+    )
+
+    profession = models.ForeignKey(
+        Profession,
+        on_delete=models.CASCADE,
+        related_name="professions",
+        verbose_name="Профессии",
+    )
+
+    class Meta:
+        verbose_name = "Курс для профессии"
+        verbose_name_plural = "Курсы для профессии"
+
+    def __str__(self):
+        return f"{self.id} - курс{self.course} профессия{self.profession}"

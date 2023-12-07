@@ -5,7 +5,7 @@ from direction.models import Course, Profession
 
 
 def create_courses():
-    with open("./backend/data/courses.csv") as csv_file:
+    with open("./data/courses.csv", encoding="utf-8") as csv_file:
         csv_reader = csv.DictReader(csv_file)
         accept_obj = []
         for row in csv_reader:
@@ -15,25 +15,18 @@ def create_courses():
                 all_prof = Profession.objects.all()
                 for obj in all_prof:
                     if obj.id in prof:
-                        proff_objects.append(obj)
-                one_prof = proff_objects.pop()
-                course = Course.objects.create(
+                        proff_objects.append(obj.id)
+
+                course = Course.objects.get_or_create(
                     name=row["name"].lower(),
                     link=row["link"],
                     level=row["level"].lower(),
                     duration=row["duration"],
-                    professions=one_prof,
                 )
 
-                course.save()
-                print(course)
-                course.professions.add(proff_objects)
-                # course.professions.add(prof)
-                print(course.professions)
-                # for name in professions:
-                #     prof = Profession.objects.get(name=name)
-                #     course.professions.add(prof.id)
-                # print(course.professions)
+                course[0].save()
+                for i in proff_objects:
+                    course[0].professions.add(i)
                 accept_obj.append(row["name"])
             except Exception as err:
                 pprint(f"ошибка добавления {row['name']}: {err} ")
