@@ -16,6 +16,7 @@ class Direction(models.Model):
     class Meta:
         verbose_name = "Направление"
         verbose_name_plural = "Направления"
+        ordering = ["-id"]
 
     def __str__(self):
         return self.name
@@ -39,6 +40,7 @@ class Profession(models.Model):
     class Meta:
         verbose_name = "Профессия"
         verbose_name_plural = "Профессии"
+        ordering = ["-id"]
 
     def __str__(self):
         return self.name
@@ -105,6 +107,7 @@ class Course(models.Model):
     class Meta:
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"
+        ordering = ["-id"]
 
     def __str__(self):
         return f"{self.name}, {self.level}"

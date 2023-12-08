@@ -19,7 +19,7 @@ def level_a_json():
     return value
 
 
-def choosen_level(string: str) -> list:
+def choosen_level(string: str):
     """Выборка желаемого уровня и уровня ниже"""
     levels = ["junior", "middle", "senior", "lead"]
     if string == levels[0]:

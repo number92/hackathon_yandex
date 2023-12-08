@@ -24,9 +24,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "users.apps.UsersConfig",
-    "djoser",
     "api.apps.ApiConfig",
     "direction.apps.DirectionConfig",
+    "djoser",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -77,6 +78,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 DJOSER = {
@@ -144,7 +146,7 @@ DESIRED_LEVEL = (
 )
 
 STMT_COURSE = (
-    ("Не пройден", "Не пройден"),
-    ("В процессе", "В процессе"),
-    ("Завершен", "Завершен"),
+    ("not_passed", "Не пройден"),
+    ("in_progress", "В процессе"),
+    ("passed", "Завершен"),
 )

@@ -7,7 +7,7 @@ from direction.models import Profession, Course
 class User(AbstractUser):
     """Класс пользователей."""
 
-    email = models.EmailField(("email"), unique=True)
+    email = models.EmailField("email", unique=True)
     courses = models.ManyToManyField(
         Course,
         through="UserCourses",
@@ -65,7 +65,7 @@ class UserGradeMap(models.Model):
 
     def __str__(self):
         return (
-            f"{self.user.username} - {self.start_level}\n"
+            f"{self.user.username} - {self.start_level}"
             f"{self.end_prof.name} - {self.end_level}"
         )
 

@@ -78,7 +78,7 @@ class SelectCourseListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ("name", "duration", "status", "level", "link")
+        fields = ("name", "duration", "status", "link")
 
     def get_status(self, obj):
         request = self.context["request"]
@@ -86,7 +86,7 @@ class SelectCourseListSerializer(serializers.ModelSerializer):
         user_courses = user.courses.all()
         queryset_status = UserCourses.objects.filter(user=user.id)
         if user_courses.contains(obj):
-            return queryset_status.get(course_id=obj.id).status
+            return queryset_status.get(course_id=obj.id).get_status_display()
         return "Не пройден"
 
 
@@ -95,6 +95,7 @@ class TargetSerializer(serializers.ModelSerializer):
         method_name="get_status_in_percent"
     )
     end_prof = serializers.CharField(source="end_prof.name")
+    end_level = serializers.CharField(source="get_end_level_display")
 
     class Meta:
         model = UserGradeMap
@@ -112,4 +113,4 @@ class TargetSerializer(serializers.ModelSerializer):
                 level=i, professions=obj.end_prof
             ).count()
         status_in_perscent = (user_courses / all_courses) * 100
-        return int(status_in_perscent)
+        return rf"{int(status_in_perscent)}%"

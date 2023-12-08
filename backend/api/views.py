@@ -20,8 +20,8 @@ from .utils import choosen_level
 
 class FirstStepView(APIView):
     """
-    get: a_b уровень навыков
-    post,put,delete: Создание картыуровней пользователя
+    Метод get: a_b уровень навыков.
+    Методы post,put,delete: создание карты уровней пользователя
     """
 
     permission_classes = (IsAuthenticated,)
@@ -77,13 +77,20 @@ class SelectCourseView(mixins.ListModelMixin, viewsets.GenericViewSet):
         )
         level_range = choosen_level(usergrademap.end_level)
         queryset = []
-        for i in level_range:
-            query = Course.objects.filter(
-                level=i,
+        if type(level_range) is list:
+            for i in level_range:
+                query = Course.objects.filter(
+                    level=i,
+                    professions=usergrademap.end_prof,
+                )
+                queryset.extend(query)
+                queryset = set(queryset)
+        else:
+            queryset = Course.objects.filter(
+                level=usergrademap.end_level,
                 professions=usergrademap.end_prof,
             )
-            queryset.extend(query)
-        queryset = set(queryset)
+
         return queryset
 
     @action(
