@@ -1,20 +1,20 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
-from direction.models import Course, Profession
+from direction.models import Profession, Course
 
 
 class User(AbstractUser):
     """Класс пользователей."""
 
     email = models.EmailField(("email"), unique=True)
-    courses = models.ForeignKey(
+    courses = models.ManyToManyField(
         Course,
-        on_delete=models.CASCADE,
-        related_name="user_courses",
+        through="UserCourses",
+        through_fields=("user", "course"),
+        related_name="usercourses",
         verbose_name="Курсы",
         blank=True,
-        null=True,
     )
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ("username", "password")
@@ -48,6 +48,8 @@ class UserGradeMap(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Начальная профессия",
         related_name="start_prof",
+        blank=True,
+        null=True,
     )
     end_prof = models.ForeignKey(
         Profession,
@@ -63,6 +65,39 @@ class UserGradeMap(models.Model):
 
     def __str__(self):
         return (
-            f"{self.start_prof.name} - {self.start_level}\n"
+            f"{self.user.username} - {self.start_level}\n"
             f"{self.end_prof.name} - {self.end_level}"
         )
+
+
+class UserCourses(models.Model):
+    user = models.ForeignKey(
+        User,
+        verbose_name="Пользователь",
+        on_delete=models.CASCADE,
+        related_name="user_course",
+    )
+    course = models.ForeignKey(
+        Course,
+        verbose_name="Курс",
+        on_delete=models.CASCADE,
+        related_name="course_user",
+    )
+    status = models.CharField(
+        "Статус",
+        choices=settings.STMT_COURSE,
+        max_length=256,
+        default=settings.STMT_COURSE[0],
+    )
+
+    class Meta:
+        verbose_name = "Курс Пользователя"
+        verbose_name_plural = "Курсы пользователя"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "course"], name="unique_user_course"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.user} - {self.course}"

@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from direction.models import Direction, Profession
-from users.models import UserGradeMap
-from .utils import level_b_json, level_a_json
+from users.models import UserGradeMap, UserCourses
+from direction.models import Course
+from .utils import choosen_level, level_b_json, level_a_json
 
 
 class ProfessionsSerializer(serializers.ModelSerializer):
@@ -70,3 +71,45 @@ class UserGradeSerializer(serializers.ModelSerializer):
         )
         instance.end_prof = validated_data.get("end_prof", instance.end_prof)
         return instance
+
+
+class SelectCourseListSerializer(serializers.ModelSerializer):
+    status = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Course
+        fields = ("name", "duration", "status", "level", "link")
+
+    def get_status(self, obj):
+        request = self.context["request"]
+        user = request.user
+        user_courses = user.courses.all()
+        queryset_status = UserCourses.objects.filter(user=user.id)
+        if user_courses.contains(obj):
+            return queryset_status.get(course_id=obj.id).status
+        return "Не пройден"
+
+
+class TargetSerializer(serializers.ModelSerializer):
+    status = serializers.SerializerMethodField(
+        method_name="get_status_in_percent"
+    )
+    end_prof = serializers.CharField(source="end_prof.name")
+
+    class Meta:
+        model = UserGradeMap
+
+        fields = ("end_level", "end_prof", "status")
+
+    def get_status_in_percent(self, obj):
+        user_courses = obj.user.courses.filter(
+            level=obj.end_level, professions=obj.end_prof
+        ).count()
+        level_range = choosen_level(obj.end_level)
+        all_courses = 0
+        for i in level_range:
+            all_courses += Course.objects.filter(
+                level=i, professions=obj.end_prof
+            ).count()
+        status_in_perscent = (user_courses / all_courses) * 100
+        return int(status_in_perscent)

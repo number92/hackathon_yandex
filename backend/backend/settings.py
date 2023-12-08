@@ -23,9 +23,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework.authtoken",
+    "users.apps.UsersConfig",
     "djoser",
     "api.apps.ApiConfig",
-    "users.apps.UsersConfig",
     "direction.apps.DirectionConfig",
 ]
 
@@ -144,7 +144,7 @@ DESIRED_LEVEL = (
 )
 
 STMT_COURSE = (
-    ("passed", "Завершен"),
-    ("not_passed", "Не пройден"),
-    ("in_progress", "В процессе"),
+    ("Не пройден", "Не пройден"),
+    ("В процессе", "В процессе"),
+    ("Завершен", "Завершен"),
 )

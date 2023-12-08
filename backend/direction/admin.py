@@ -10,7 +10,6 @@ class CourseAdmin(admin.ModelAdmin):
         "name",
         "level",
         "link",
-        "status",
         "duration",
         "price",
     )
@@ -18,14 +17,12 @@ class CourseAdmin(admin.ModelAdmin):
         "name",
         "level",
         "link",
-        "status",
         "duration",
         "price",
     )
     list_filter = (
         "name",
         "level",
-        "status",
     )
     search_fields = (
         "name",
@@ -70,6 +67,8 @@ class ProfessionInDirectionAdmin(admin.ModelAdmin):
         "profession",
         "direction",
     )
+    list_filter = ("profession",)
+    search_fields = ("profession",)
 
 
 @admin.register(models.CoursesForProfession)
@@ -83,3 +82,5 @@ class CoursesForProfessionAdmin(admin.ModelAdmin):
         "profession",
         "course",
     )
+    list_filter = ("profession",)
+    search_fields = ("profession",)

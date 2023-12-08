@@ -18,15 +18,16 @@ def create_courses():
                         proff_objects.append(obj.id)
 
                 course = Course.objects.get_or_create(
-                    name=row["name"].lower(),
+                    name=row["name"],
                     link=row["link"],
-                    level=row["level"].lower(),
+                    level=row["level"],
                     duration=row["duration"],
                 )
 
                 course[0].save()
-                for i in proff_objects:
-                    course[0].professions.add(i)
+                if proff_objects:
+                    for i in proff_objects:
+                        course[0].professions.add(i)
                 accept_obj.append(row["name"])
             except Exception as err:
                 pprint(f"ошибка добавления {row['name']}: {err} ")
