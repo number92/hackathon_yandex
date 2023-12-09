@@ -130,6 +130,7 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+SPECTACULAR_SETTINGS = {"COMPONENT_SPLIT_REQUEST": True}
 
 LEVEL = (
     ("newbie", "Без опыта"),
