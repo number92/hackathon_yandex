@@ -51,7 +51,7 @@ def create_user_course_relation():
     for x in USERS:
         users.append(get_object_or_404(User, email=x))
     course1 = get_object_or_404(Course, id=13)
-    course2 = get_object_or_404(Course, id=19)
+    course2 = get_object_or_404(Course, id=24)
     UserCourses.objects.get_or_create(
         user=users[0], course=course1, status="passed"
     )
@@ -67,7 +67,7 @@ def create_user_grade_map():
     for x in USERS:
         users.append(get_object_or_404(User, email=x))
     prof1 = get_object_or_404(Profession, id=6)
-    prof2 = get_object_or_404(Profession, id=1)
+    prof2 = get_object_or_404(Profession, id=3)
     prof3 = get_object_or_404(Profession, id=4)
 
     try:

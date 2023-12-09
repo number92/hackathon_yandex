@@ -84,7 +84,7 @@ class SelectCourseView(mixins.ListModelMixin, viewsets.GenericViewSet):
                     professions=usergrademap.end_prof,
                 )
                 queryset.extend(query)
-                queryset = set(queryset)
+
         else:
             queryset = Course.objects.filter(
                 level=usergrademap.end_level,

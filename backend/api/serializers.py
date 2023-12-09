@@ -2,7 +2,7 @@ from rest_framework import serializers
 from direction.models import Direction, Profession
 from users.models import UserGradeMap, UserCourses
 from direction.models import Course
-from .utils import choosen_level, level_b_json, level_a_json
+from .utils import level_b_json, level_a_json, calculating_percent
 
 
 class ProfessionsSerializer(serializers.ModelSerializer):
@@ -103,16 +103,4 @@ class TargetSerializer(serializers.ModelSerializer):
         fields = ("end_level", "end_prof", "status")
 
     def get_status_in_percent(self, obj):
-        user_courses = obj.user.courses.filter(
-            level=obj.end_level, professions=obj.end_prof
-        ).count()
-        level_range = choosen_level(obj.end_level)
-        all_courses = 0
-        for i in level_range:
-            all_courses += Course.objects.filter(
-                level=i, professions=obj.end_prof
-            ).count()
-        if user_courses != 0 and all_courses != 0:
-            status_in_perscent = (user_courses / all_courses) * 100
-            return rf"{int(status_in_perscent)}%"
-        return "0%"
+        return calculating_percent(obj)
