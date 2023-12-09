@@ -112,5 +112,7 @@ class TargetSerializer(serializers.ModelSerializer):
             all_courses += Course.objects.filter(
                 level=i, professions=obj.end_prof
             ).count()
-        status_in_perscent = (user_courses / all_courses) * 100
-        return rf"{int(status_in_perscent)}%"
+        if user_courses != 0 and all_courses != 0:
+            status_in_perscent = (user_courses / all_courses) * 100
+            return rf"{int(status_in_perscent)}%"
+        return "0%"

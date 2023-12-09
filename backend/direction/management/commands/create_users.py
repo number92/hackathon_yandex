@@ -1,4 +1,5 @@
-from users.models import User, UserCourses, UserGradeMap
+from users.models import UserCourses, UserGradeMap, User
+from rest_framework.authtoken.models import Token
 from direction.models import Course, Profession
 from pprint import pprint
 from django.shortcuts import get_object_or_404
@@ -13,25 +14,32 @@ USERS = [
 
 def create_users():
     try:
-        User.objects.get_or_create(
+        user1 = User.objects.create_user(
             email="ivan@mail.ru", username="Ivan", password="testivan"
-        ),
-        User.objects.get_or_create(
+        )
+        user1.save()
+        Token.objects.create(user=user1)
+        user2 = User.objects.create_user(
             email="jenifer@mail.ru",
             username="Jenifer",
             password="jenitest",
-        ),
-        User.objects.get_or_create(
+        )
+        user2.save()
+        Token.objects.create(user=user2)
+        user3 = User.objects.create_user(
             email="konstantin@mail.ru",
             username="Konstantin",
             password="konstantin",
-        ),
-        User.objects.get_or_create(
+        )
+        user3.save()
+        Token.objects.create(user=user3)
+        admin = User.objects.create_superuser(
             email="admin@mail.ru",
             username="admin",
             password="admin",
-            is_staff=True,
-        ),
+        )
+        admin.save()
+        Token.objects.create(user=admin)
 
         pprint("Пользователи добавлены")
     except Exception as err:
@@ -47,9 +55,11 @@ def create_user_course_relation():
     UserCourses.objects.get_or_create(
         user=users[0], course=course1, status="passed"
     )
+    pprint(f"Связь {users[0]}- {course1} добавлена")
     UserCourses.objects.get_or_create(
         user=users[2], course=course2, status="in_progress"
     )
+    pprint(f"Связь {users[2]}- {course2} добавлена")
 
 
 def create_user_grade_map():

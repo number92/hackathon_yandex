@@ -20,7 +20,7 @@ def create_courses():
                 course = Course.objects.get_or_create(
                     name=row["name"],
                     link=row["link"],
-                    level=row["level"],
+                    level=row["level"].lower(),
                     duration=row["duration"],
                 )
 

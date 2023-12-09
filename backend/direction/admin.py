@@ -14,10 +14,7 @@ class CourseAdmin(admin.ModelAdmin):
         "price",
     )
     list_editable = (
-        "name",
-        "level",
         "link",
-        "duration",
         "price",
     )
     list_filter = (
