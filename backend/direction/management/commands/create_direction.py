@@ -1,6 +1,7 @@
 from direction.models import Direction
 from pprint import pprint
 
+
 DIRECTIONS = ("Аналитика", "Менеджмент", "Дизайн")
 
 
