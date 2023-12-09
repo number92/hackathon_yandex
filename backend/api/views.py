@@ -1,15 +1,28 @@
 from django.shortcuts import get_object_or_404
 
+from rest_framework.decorators import action
 from rest_framework.views import APIView
+from rest_framework import viewsets, mixins
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from api.serializers import FirstStepSerializer, UserGradeSerializer
+from api.serializers import (
+    FirstStepSerializer,
+    UserGradeSerializer,
+    SelectCourseListSerializer,
+    TargetSerializer,
+)
 from users.models import UserGradeMap
+from direction.models import Course
+
+from .utils import choosen_level
 
 
 class FirstStepView(APIView):
-    """Шаг 1."""
+    """
+    Метод get: a_b уровень навыков.
+    Методы post,put,delete: создание карты уровней пользователя
+    """
 
     permission_classes = (IsAuthenticated,)
     model = UserGradeMap
@@ -52,7 +65,48 @@ class FirstStepView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# # get
+class SelectCourseView(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """Подбор курсов"""
+
+    permission_classes = (IsAuthenticated,)
+    serializer_class = SelectCourseListSerializer
+
+    def get_queryset(self):
+        usergrademap = get_object_or_404(
+            UserGradeMap, user=self.request.user.id
+        )
+        level_range = choosen_level(usergrademap.end_level)
+        queryset = []
+        if type(level_range) is list:
+            for i in level_range:
+                query = Course.objects.filter(
+                    level=i,
+                    professions=usergrademap.end_prof,
+                )
+                queryset.extend(query)
+                queryset = set(queryset)
+        else:
+            queryset = Course.objects.filter(
+                level=usergrademap.end_level,
+                professions=usergrademap.end_prof,
+            )
+
+        return queryset
+
+    @action(
+        methods=["GET"],
+        detail=False,
+        permission_classes=(IsAuthenticated,),
+    )
+    def target(self, request):
+        usergrademap = UserGradeMap.objects.get(user=request.user)
+        serializer = TargetSerializer(
+            usergrademap,
+            context={"request": request},
+        )
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 # def userStatus():
 #     # Параметры
 #     # Id курса

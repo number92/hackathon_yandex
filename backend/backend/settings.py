@@ -23,10 +23,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework.authtoken",
-    "djoser",
-    "api.apps.ApiConfig",
     "users.apps.UsersConfig",
+    "api.apps.ApiConfig",
     "direction.apps.DirectionConfig",
+    "djoser",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -78,6 +79,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 DJOSER = {
@@ -129,6 +131,7 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+SPECTACULAR_SETTINGS = {"COMPONENT_SPLIT_REQUEST": True}
 
 LEVEL = (
     ("newbie", "Без опыта"),
@@ -145,7 +148,7 @@ DESIRED_LEVEL = (
 )
 
 STMT_COURSE = (
-    ("passed", "Завершен"),
     ("not_passed", "Не пройден"),
     ("in_progress", "В процессе"),
+    ("passed", "Завершен"),
 )
