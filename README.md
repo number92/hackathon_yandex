@@ -26,7 +26,7 @@
 git clone https://github.com/EmilAbushaev/hackathon_yandex.git
 ```
 создайте .env файл в корне, используя [пример](https://github.com/EmilAbushaev/hackathon_yandex/blob/main/.env.example).  
-Создайте SECRET_KEY используя [сервис](https://djecrety.ir/)  
+Создайте SECRET_KEY, используя [сервис](https://djecrety.ir/)  
 
 Создате сеть:  
 ```
