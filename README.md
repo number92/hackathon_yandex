@@ -25,7 +25,7 @@
 ```
 git clone https://github.com/EmilAbushaev/hackathon_yandex.git
 ```
-создайте .env файл в корне, используя [пример](https://github.com/EmilAbushaev/hackathon_yandex/blob/main/backend/.env.example).  
+создайте .env файл в корне, используя [пример](https://github.com/EmilAbushaev/hackathon_yandex/blob/main/.env.example).  
 Создайте SECRET_KEY, введя в терминале: 
 ```
 python manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
@@ -69,7 +69,7 @@ pip install poetry
 poetry init
 poetry install
 ```
-Создайте в корне файл .env, используя [пример](https://github.com/EmilAbushaev/hackathon_yandex/blob/main/backend/.env.example).  
+Создайте в корне файл .env, используя [пример](https://github.com/EmilAbushaev/hackathon_yandex/blob/main/.env.example).  
 Создайте SECRET_KEY, введя в терминале: 
 ```
 python manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
