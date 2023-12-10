@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/backend/manage.py",
             "args": [
-                "runserver"
+                "load_fixture"
             ],
             "django": true,
             "justMyCode": true
