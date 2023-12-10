@@ -20,8 +20,35 @@
 * Poetry 1.7.1
 * black 23.11.0
 
+## Сборка в контейнерах Docker  
+Выполните в консоли:
+```
+git clone https://github.com/EmilAbushaev/hackathon_yandex.git
+```
+создайте .env файл в корне, используя [пример](https://github.com/EmilAbushaev/hackathon_yandex/blob/main/backend/.env.example).  
+Создайте SECRET_KEY, введя в терминале: 
+```
+python manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+Создате сеть:  
+```
+docker compose up -d
+```
+Приментие миграции  
+```
+docker-compose exec backend python manage.py migrate
+```
+Добавьте тестовые данные
+```
+docker-compose exec backend python manage.py load_fixture
+```
+Копирование статики админки
+```
+docker-compose exec backend python manage.py collectstatic 
+```
+Проверьте [работоспособность](http://localhost:8000/api/docs/)
 
-## Сборка репозитория и локальный запуск
+## Локальный запуск репозитория
 
 Выполните в консоли:
 ```
