@@ -20,8 +20,33 @@
 * Poetry 1.7.1
 * black 23.11.0
 
+## Сборка в контейнерах Docker  
+Склонируйте репозиторий и перейдите в него:
+```
+git clone https://github.com/EmilAbushaev/hackathon_yandex.git
+```
+создайте .env файл в корне, используя [пример](https://github.com/EmilAbushaev/hackathon_yandex/blob/main/.env.example).  
+Создайте SECRET_KEY, используя [сервис](https://djecrety.ir/)  
 
-## Сборка репозитория и локальный запуск
+Создате сеть:  
+```
+docker compose up -d
+```
+Приментие миграции  
+```
+docker compose exec backend python manage.py migrate
+```
+Добавьте тестовые данные
+```
+docker compose exec backend python manage.py load_fixture
+```
+Копирование статики админки
+```
+docker compose exec backend python manage.py collectstatic 
+```
+Проверьте [работоспособность](http://localhost:8000/api/docs/)
+
+## Локальный запуск репозитория
 
 Выполните в консоли:
 ```
@@ -42,7 +67,7 @@ pip install poetry
 poetry init
 poetry install
 ```
-Создайте в корне файл .env, используя [пример](https://github.com/EmilAbushaev/hackathon_yandex/blob/main/backend/.env.example).  
+Создайте в корне файл .env, используя [пример](https://github.com/EmilAbushaev/hackathon_yandex/blob/main/.env.example).  
 Создайте SECRET_KEY, введя в терминале: 
 ```
 python manage.py shell -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
