@@ -21,7 +21,7 @@
 * black 23.11.0
 
 ## Сборка в контейнерах Docker  
-Выполните в консоли:
+Склонируйте репозиторий и перейдите в него:
 ```
 git clone https://github.com/EmilAbushaev/hackathon_yandex.git
 ```
@@ -34,15 +34,15 @@ docker compose up -d
 ```
 Приментие миграции  
 ```
-docker-compose exec backend python manage.py migrate
+docker compose exec backend python manage.py migrate
 ```
 Добавьте тестовые данные
 ```
-docker-compose exec backend python manage.py load_fixture
+docker compose exec backend python manage.py load_fixture
 ```
 Копирование статики админки
 ```
-docker-compose exec backend python manage.py collectstatic 
+docker compose exec backend python manage.py collectstatic 
 ```
 Проверьте [работоспособность](http://localhost:8000/api/docs/)
 
