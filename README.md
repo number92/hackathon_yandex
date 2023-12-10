@@ -7,7 +7,7 @@
 
 
 ## API внутреннего сервиса Яндекс Практикума “Трекер развития”, позволяющего строить план обучения от точки А до точки Б)
-
+Посмотреть скриншоты можно [здесь](https://github.com/EmilAbushaev/hackathon_yandex/tree/main/Screenshots#readme)
 
 
 
